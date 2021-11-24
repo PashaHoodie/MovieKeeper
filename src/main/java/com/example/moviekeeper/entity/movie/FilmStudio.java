@@ -1,0 +1,5 @@
+package com.example.moviekeeper.entity.movie;
+
+public enum FilmStudio {
+    LIONSGATE, PARAMOUNT_PICTURES, TWENTIETH_TH_CENTURY_FOX, COLUMBIA_PICTURES, UNIVERSAL_PICTURES, WARNER_BROS, WALT_DISNEY_PICTURES;
+}
