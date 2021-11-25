@@ -1,6 +1,8 @@
 package com.example.moviekeeper.dto.Review;
 
 
+import com.example.moviekeeper.dto.movie.MovieIdDTO;
+import com.example.moviekeeper.entity.user.User;
 import com.example.moviekeeper.utils.MessageManager;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -22,5 +24,6 @@ public class ReviewAllArgsDTO {
     @NotBlank(message = MessageManager.NOT_BLANK_ERROR)
     private String description;
 
-    private long user;
+    @NotBlank(message = MessageManager.NOT_BLANK_ERROR)
+    private User user;
 }

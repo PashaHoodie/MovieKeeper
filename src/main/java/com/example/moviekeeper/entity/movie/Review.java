@@ -4,6 +4,7 @@ package com.example.moviekeeper.entity.movie;
 
 import com.example.moviekeeper.entity.user.User;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,6 +15,7 @@ import javax.persistence.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Entity
 @Table(name = "review")
 public class Review {

@@ -1,6 +1,7 @@
 package com.example.moviekeeper.dto.movie;
 
 
+import com.example.moviekeeper.dto.category.CategoryDTO;
 import com.example.moviekeeper.utils.MessageManager;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,9 +19,5 @@ public class MovieAllArgsDTO {
     @NotBlank(message = MessageManager.NOT_BLANK_ERROR)
     private String name;
 
-    @NotBlank(message = MessageManager.NOT_BLANK_ERROR)
-    private String genre;
-
-    @NotBlank(message = MessageManager.NOT_BLANK_ERROR)
-    private String studio;
+    private CategoryDTO categoryDTO;
 }

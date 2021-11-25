@@ -20,10 +20,6 @@ public class Telephone {
 
     private String number;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
