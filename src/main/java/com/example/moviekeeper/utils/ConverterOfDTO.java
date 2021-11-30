@@ -5,6 +5,7 @@ import com.example.moviekeeper.dto.Review.ReviewAllArgsDTO;
 import com.example.moviekeeper.dto.movie.MovieAllArgsDTO;
 import com.example.moviekeeper.dto.telephone.TelephoneDTO;
 import com.example.moviekeeper.dto.user.UserDTO;
+import com.example.moviekeeper.dto.user.UserNameTelDTO;
 import com.example.moviekeeper.entity.movie.Movie;
 import com.example.moviekeeper.entity.movie.Review;
 import com.example.moviekeeper.entity.user.Role;
@@ -23,6 +24,15 @@ public class ConverterOfDTO {
                     .build())
             .role(Role.USER)
             .build();
+    }
+
+    public static User UserNameTelDTO (UserNameTelDTO userNameTelDTO) {
+        return User.builder()
+                .username(userNameTelDTO.getUsername())
+                .telephone(Telephone.builder()
+                        .number(userNameTelDTO.getTelephone().getNumber())
+                        .build())
+                .build();
     }
 
     public static User getUserAuthDTO (User user){
@@ -46,11 +56,10 @@ public class ConverterOfDTO {
                 .build();
     }
 
-    public static Review getAllArgsReviewDTO (ReviewAllArgsDTO reviewAllArgsDTO, long userId) {
+    public static Review getAllArgsReviewDTO (ReviewAllArgsDTO reviewAllArgsDTO) {
         return Review.builder()
                 .id(reviewAllArgsDTO.getReviewId())
                 .description(reviewAllArgsDTO.getDescription())
-                .user(User.builder().id(userId).build()).build();
+                .user(User.builder().id(reviewAllArgsDTO.getReviewId()).build()).build();
     }
-
 }
