@@ -34,7 +34,7 @@ public class ReviewController {
     }
 
     @DeleteMapping("/delete/{userId}/{reviewId}")
-    public ResponseEntity<String> deleteReview(@PathVariable long reviewId, @PathVariable long userId, HttpSession httpSession){
+    public ResponseEntity<String> deleteReview(@PathVariable long userId, @PathVariable long reviewId, HttpSession httpSession){
         User user = (User) httpSession.getAttribute("user");
         if (reviewService.deleteReview(user, userId, reviewId)){
             return ResponseEntity.status(HttpStatus.OK).build();
