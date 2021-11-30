@@ -40,6 +40,13 @@ public class MovieService {
     public List<Movie> getMoviesByStudio(String studio) {
         return movieRepository.getAllByStudio(FilmStudio.valueOf(studio.toUpperCase(Locale.ENGLISH)));
     }
+
+    public Optional<Movie> getMovieById(long dishId){
+        if (movieRepository.existsById(dishId)){
+            return movieRepository.findById(dishId);
+        }
+        return Optional.empty();
+    }
 }
 
 

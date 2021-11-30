@@ -29,15 +29,15 @@ public class UserService {
         return true;
     }
 
-    public User getUserByUsername(String username) {
-        return userRepository.getUserByUsername(username);
+    public Optional<User> findUserByUsername(String username) {
+        return userRepository.findByUsername(username);
     }
 
-    public Optional<User> getUserById (long id) {
+    public Optional<User> getUserById(long id) {
         return userRepository.findById(id);
     }
 
-    public List<User> getUserByRole(String role){
+    public List<User> getAllUserByRole(String role) {
         return userRepository.getByRole(Role.valueOf(role.toUpperCase(Locale.ENGLISH)));
     }
 
@@ -55,6 +55,17 @@ public class UserService {
         return false;
     }
 
+    public boolean updateUsername(User user, String newUsername) {
+        if (user.getUsername().equals(newUsername)) {
+            return false;
+        } else {
+            user.setUsername(newUsername);
+            userRepository.save(user);
+            return true;
+        }
+    }
+
+
     public boolean changePassword(User user, ChangePasswordDTO passwordDTO) {
         String newPassword = passwordDTO.getNewPassword();
         String oldPassword = passwordDTO.getOldPassword();
@@ -63,8 +74,15 @@ public class UserService {
             userRepository.save(user);
             return true;
         }
-            return false;
+        return false;
     }
 
+    public boolean deleteUserById(long id, User user) {
+        if (userRepository.existsById(id) && user.getId() == id) {
+            userRepository.deleteById(id);
+            return true;
+        }
+        return false;
+    }
 }
 
