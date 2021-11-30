@@ -33,10 +33,10 @@ public class ReviewController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @DeleteMapping("/delete/{reviewId}/{userId}")
+    @DeleteMapping("/delete/{userId}/{reviewId}")
     public ResponseEntity<String> deleteReview(@PathVariable long reviewId, @PathVariable long userId, HttpSession httpSession){
         User user = (User) httpSession.getAttribute("user");
-        if (reviewService.deleteReview(user, reviewId, userId)){
+        if (reviewService.deleteReview(user, userId, reviewId)){
             return ResponseEntity.status(HttpStatus.OK).build();
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
