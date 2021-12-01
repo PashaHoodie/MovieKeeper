@@ -29,8 +29,9 @@ public class UserService {
         return true;
     }
 
-    public Optional<User> findUserByUsername(String username) {
-        return userRepository.findByUsername(username);
+    public User getUserByUsername(String username) {
+        User user = userRepository.getUserByUsername(username);
+        return user;
     }
 
     public Optional<User> getUserById(long id) {
@@ -64,8 +65,6 @@ public class UserService {
             return true;
         }
     }
-
-
     public boolean changePassword(User user, ChangePasswordDTO passwordDTO) {
         String newPassword = passwordDTO.getNewPassword();
         String oldPassword = passwordDTO.getOldPassword();
