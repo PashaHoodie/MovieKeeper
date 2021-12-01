@@ -28,7 +28,7 @@ public class ConverterOfDTO {
 
     public static User UserNameTelDTO (UserNameTelDTO userNameTelDTO) {
         return User.builder()
-                .username(userNameTelDTO.getUsername())
+                .username(userNameTelDTO.getName())
                 .telephone(Telephone.builder()
                         .number(userNameTelDTO.getTelephone().getNumber())
                         .build())

@@ -20,7 +20,7 @@ public class UserNameTelDTO {
 
     @NotBlank(message = MessageManager.NOT_BLANK_ERROR)
     @Pattern(regexp = Patterns.EMAIL, message = MessageManager.EMAIL_ERROR)
-    private String username;
+    private String name;
 
     @NotBlank(message = MessageManager.NOT_BLANK_ERROR)
     @Size(min = 7, max = 12, message = MessageManager.PHONE_NUMBER_ERROR)

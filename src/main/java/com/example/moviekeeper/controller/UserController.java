@@ -51,6 +51,16 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(allUsers);
     }
 
+    @GetMapping("/getAllUsersByRole/{role}")
+    public ResponseEntity<List<User>> getAllUsersByRole( @PathVariable String role, HttpSession httpSession){
+        User user = (User) httpSession.getAttribute("user");
+        List<User> allByRole = userService.getAllUserByRole(role);
+        if (allByRole.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(allByRole);
+    }
+
     @GetMapping("/getUserById/{id}")
     public ResponseEntity<User> getUserById( @PathVariable long id){
         Optional<User> userById = userService.getUserById(id);
@@ -83,16 +93,6 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).build();
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-    }
-
-    @GetMapping("/getAllUsersByRole/{role}")
-    public ResponseEntity<List<User>> getAllUsersByRole( @PathVariable String role, HttpSession httpSession){
-        User user = (User) httpSession.getAttribute("user");
-        List<User> allByRole = userService.getAllUserByRole(role);
-        if (allByRole.isEmpty()){
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-        }
-        return ResponseEntity.status(HttpStatus.OK).body(allByRole);
     }
 
     @DeleteMapping("/delete/{userId}")
