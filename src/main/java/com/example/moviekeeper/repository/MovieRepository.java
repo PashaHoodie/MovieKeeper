@@ -6,6 +6,7 @@ import com.example.moviekeeper.entity.movie.MoviesGenre;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface MovieRepository extends JpaRepository<Movie, Long> {
 
@@ -16,6 +17,8 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
 //    boolean existsByGenre(MoviesGenre genre);
 //
 //    boolean existsByStudio(FilmStudio studio);
+
+    Optional<Movie> findByName(String name);
 
     List<Movie> getAllByGenre(MoviesGenre genre);
 

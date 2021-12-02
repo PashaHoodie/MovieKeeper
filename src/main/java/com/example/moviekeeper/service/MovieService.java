@@ -33,6 +33,10 @@ public class MovieService {
         return false;
     }
 
+    public Optional<Movie> getMovieByName(String name) {
+        return movieRepository.findByName(name);
+    }
+
     public List<Movie> getMoviesByGenre(String genre) {
         return movieRepository.getAllByGenre(MoviesGenre.valueOf(genre.toUpperCase(Locale.ENGLISH)));
     }
@@ -46,6 +50,10 @@ public class MovieService {
             return movieRepository.findById(dishId);
         }
         return Optional.empty();
+    }
+
+    public List<Movie> getAll(){
+        return movieRepository.findAll();
     }
 }
 
