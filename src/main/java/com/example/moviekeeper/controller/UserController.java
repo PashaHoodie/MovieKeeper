@@ -36,9 +36,12 @@ public class UserController {
     }
 
     @GetMapping("/{username}")
-    public ResponseEntity<User> findByUsername(@PathVariable String username) {
+    public ResponseEntity<User> findByUsername(@PathVariable String username){
         Optional<User> userByUsername = userService.findUserByUsername(username);
-        return userByUsername.map(user -> ResponseEntity.status(HttpStatus.OK).body(user)).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+        if (userByUsername.isPresent()){
+            return ResponseEntity.status(HttpStatus.OK).body(userByUsername.get());
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
     @GetMapping("/getAllUsers")

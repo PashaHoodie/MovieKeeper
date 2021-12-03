@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+
+  SQL_db:
+    image: mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=myDB
+
+  rest_service:
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - SQL_db
