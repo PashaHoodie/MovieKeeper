@@ -16,6 +16,13 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.firewall.HttpFirewall;
+import org.springframework.security.web.firewall.HttpStatusRequestRejectedHandler;
+import org.springframework.security.web.firewall.RequestRejectedHandler;
+import org.springframework.security.web.firewall.StrictHttpFirewall;
+
+import java.util.Arrays;
+import java.util.Collections;
 
 @Configuration
 @EnableWebSecurity
@@ -36,7 +43,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/configuration/security",
             "/swagger-ui.html",
             "/webjars/",
-            "/v3/api-docs/"
+            "/v3/api-docs/",
+            "/swagger-ui/",
+            "/h2-console",
+            "/auth/signUp",
+            "/auth/signIn"
     };
 
     @Override
@@ -45,9 +56,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
+    public RequestRejectedHandler requestRejectedHandler() {
+        return new HttpStatusRequestRejectedHandler();
+    }
+
+    @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
+    }
+
+    @Bean
+    public HttpFirewall configureFirewall() {
+        StrictHttpFirewall strictHttpFirewall = new StrictHttpFirewall();
+        strictHttpFirewall.setAllowBackSlash(true);
+        strictHttpFirewall.setAllowedHttpMethods(Arrays.asList("GET","POST","DELETE", "PUT"));
+        return  strictHttpFirewall;
     }
 
     @Bean
@@ -68,7 +92,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(AUTH_WHITELIST).permitAll()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/h2-console/**","/auth/signUp","/auth/signIn").permitAll()
+                .antMatchers("/h2-console/**").permitAll()
+                .antMatchers("/auth/signUp", "/auth/signIn").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .headers().frameOptions().disable()
